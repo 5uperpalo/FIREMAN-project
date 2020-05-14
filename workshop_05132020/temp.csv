@@ -1,8 +1,0 @@
-# TEST CONFIGURATION BEGIN
-# DataStream(n_targets=-1, target_idx=1, cat_features=None, name=None)
-# [HT] HoeffdingTree(binary_split=False, grace_period=200, leaf_prediction='nba', max_byte_size=33554432, memory_estimate_period=1000000, nb_threshold=0, no_preprune=False, nominal_attributes=None, remove_poor_atts=False, split_confidence=1e-07, split_criterion='info_gain', stop_mem_management=False, tie_threshold=0.05)
-# [HAT] HAT(binary_split=False, grace_period=200, leaf_prediction='nba', max_byte_size=33554432, memory_estimate_period=1000000, nb_threshold=0, no_preprune=False, nominal_attributes=None, remove_poor_atts=False, split_confidence=1e-07, split_criterion='info_gain', stop_mem_management=False, tie_threshold=0.05)
-# EvaluateHoldout(batch_size=100, dynamic_test_set=False, max_samples=100000, max_time=6000, metrics=['precision', 'recall', 'f1'], n_wait=10000, output_file='temp.csv', restart_stream=True, show_plot=False, test_size=2023)
-# TEST CONFIGURATION END
-id,mean_precision_[HT],current_precision_[HT],mean_precision_[HAT],current_precision_[HAT],mean_recall_[HT],current_recall_[HT],mean_recall_[HAT],current_recall_[HAT],mean_f1_[HT],current_f1_[HT],mean_f1_[HAT],current_f1_[HAT]
-12023,1.000000,1.000000,1.000000,1.000000,0.970588,0.970588,0.961165,0.961165,0.985075,0.985075,0.980198,0.980198
