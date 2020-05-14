@@ -1,6 +1,6 @@
 # TEST CONFIGURATION BEGIN
 # DataStream(n_targets=-1, target_idx=1, cat_features=None, name=None)
 # [HAT] HAT(binary_split=False, grace_period=200, leaf_prediction='nba', max_byte_size=33554432, memory_estimate_period=1000000, nb_threshold=0, no_preprune=False, nominal_attributes=None, remove_poor_atts=False, split_confidence=1e-07, split_criterion='info_gain', stop_mem_management=False, tie_threshold=0.05)
-# EvaluatePrequential(batch_size=100, data_points_for_classification=False, max_samples=100000, max_time=inf, metrics=['precision', 'recall', 'f1'], n_wait=100, output_file='HAT_prequential.csv', pretrain_size=18209, restart_stream=True, show_plot=False)
+# EvaluatePrequential(batch_size=100, data_points_for_classification=False, max_samples=100000, max_time=inf, metrics=['precision', 'recall', 'f1'], n_wait=100, output_file='HAT_prequential.csv', pretrain_size=100, restart_stream=True, show_plot=False)
 # TEST CONFIGURATION END
 id,mean_precision_[HAT],current_precision_[HAT],mean_recall_[HAT],current_recall_[HAT],mean_f1_[HAT],current_f1_[HAT]
