@@ -1,45 +1,35 @@
-# Codebase for "Generative Adversarial Imputation Networks (GAIN)"
+# Adjusted version of "Generative Adversarial Imputation Networks (GAIN)"
 
-Authors: Jinsung Yoon, James Jordon, Mihaela van der Schaar
+Adjusted from https://github.com/jsyoon0823/GAIN/blob/master/utils.py
+You may find example usage with tf -> tf2 adjustment procedure in fireman_gain.ipynb
 
-Paper: Jinsung Yoon, James Jordon, Mihaela van der Schaar, 
-"GAIN: Missing Data Imputation using Generative Adversarial Nets," 
-International Conference on Machine Learning (ICML), 2018.
- 
-Paper Link: http://proceedings.mlr.press/v80/yoon18a/yoon18a.pdf
-
-Contact: jsyoon0823@gmail.com
-
-This directory contains implementations of GAIN framework for imputation
-using two UCI datasets.
-
--   UCI Letter (https://archive.ics.uci.edu/ml/datasets/Letter+Recognition)
--   UCI Spam (https://archive.ics.uci.edu/ml/datasets/Spambase)
-
-To run the pipeline for training and evaluation on GAIN framwork, simply run 
-python3 -m main_letter_spam.py.
-
-Note that any model architecture can be used as the generator and 
-discriminator model such as multi-layer perceptrons or CNNs. 
-
-### Command inputs:
-
--   data_name: letter or spam
--   miss_rate: probability of missing components
--   batch_size: batch size
--   hint_rate: hint rate
--   alpha: hyperparameter
--   iterations: iterations
-
-### Example command
-
-```shell
-$ python3 main_letter_spam.py --data_name spam 
---miss_rate: 0.2 --batch_size 128 --hint_rate 0.9 --alpha 100
---iterations 10000
+usage:
 ```
+from GAIN.gain_tf2 import gain
+from GAIN.utils_tf2 import binary_sampler
+from GAIN.utils_tf2 import rmse_loss
 
-### Outputs
+tep_dataset = pd.read_csv('Tennessee_Event-Driven/datasets/dataset.csv',index_col=False)
 
--   imputed_data_x: imputed data
--   rmse: Root Mean Squared Error
+dataset_X = tep_dataset.drop(columns=['faultNumber', 'simulationRun', 'sample']).values
+dataset_Y = tep_dataset['faultNumber'].values
+
+no, dim = dataset_X.shape
+
+# drop value probability
+p = 0.1
+
+# Introduce missing data
+mask = binary_sampler(1-p, no, dim)
+dataset_X_missing = dataset_X.copy()
+dataset_X_missing[mask == 0] = np.nan
+
+gain_parameters = {'batch_size': 128,
+                 'hint_rate': 1.5,
+                 'alpha': 100,
+                 'iterations': 1000}
+                 
+dataset_X_imputed = gain(dataset_X_missing, gain_parameters)
+
+rmse_loss(dataset_X, dataset_X_imputed, mask)
+```
