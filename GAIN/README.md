@@ -1,6 +1,6 @@
 # Adjusted version of "Generative Adversarial Imputation Networks (GAIN)"
 
-Adjusted from https://github.com/jsyoon0823/GAIN/blob/master/utils.py <\br>
+Adjusted from https://github.com/jsyoon0823/GAIN/blob/master/utils.py <br/>
 You may find example usage with tf -> tf2 adjustment procedure in fireman_gain.ipynb
 
 usage:
