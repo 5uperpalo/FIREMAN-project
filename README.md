@@ -21,3 +21,4 @@ Scripts and notebooks:
 Additional materials:
 * [CSC/](https://github.com/5uperpalo/FIREMAN-project/tree/master/CSC) - scripts usable in [CSC](https://research.csc.fi/)
 * [workshop_05132020/](https://github.com/5uperpalo/FIREMAN-project/tree/master/workshop_05132020) - materials and presentations related to Fireman ML workshop organized in May 2020
+* [GAIN/](https://github.com/5uperpalo/FIREMAN-project/tree/master/GAIN) - adjusted GAIN from [Codebase for "Generative Adversarial Imputation Networks (GAIN)"](https://github.com/jsyoon0823/GAIN)
