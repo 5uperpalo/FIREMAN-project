@@ -15,6 +15,20 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.setLevel(logging.INFO)
 
+src_email = XXX
+src_email_pass = YYY
+dst_email = ZZZ
+
+def notification_email(content_str):
+    mail = smtplib.SMTP('smtp.gmail.com',587)
+    content = 'Subject: %s\n\n%s' % ('script', content_str)
+    mail.ehlo()
+    mail.starttls()
+    mail.login(src_email, src_email_pass)
+    mail.sendmail(src_email, dst_email, content) 
+    mail.close()
+    logger.info(content_str)
+    
 dataset = pd.read_csv('tep_extended_dataset_simrun1.csv',index_col=False)
 dataset_X = dataset.drop(columns='faultNumber').values
 dataset_Y = dataset['faultNumber'].values
@@ -54,20 +68,8 @@ try:
     result_pd = pd.DataFrame(index = index_names, columns=['p_' + str(p) for p in p_list], data = np.array(dataset_X_rmse_list).T)
     result_pd.to_csv('TEP_GAINImputation_RMSE.csv')
 
-    content = 'Subject: %s\n\n%s' % ('script', 'script finished')
-    mail = smtplib.SMTP('smtp.gmail.com',587)
-    mail.ehlo()
-    mail.starttls()
-    mail.login('notifyme421@gmail.com','sfm1NIUDgv4YtaXV44rk')
-    mail.sendmail('notifyme421@gmail.com','palusko@gmail.com',content) 
-    mail.close()
+    notification_email('script finished')
     logger.info('FINISHED')
 except:
-    content = 'Subject: %s\n\n%s' % ('script', 'script crashed')
-    mail = smtplib.SMTP('smtp.gmail.com',587)
-    mail.ehlo()
-    mail.starttls()
-    mail.login('notifyme421@gmail.com','sfm1NIUDgv4YtaXV44rk')
-    mail.sendmail('notifyme421@gmail.com','palusko@gmail.com',content)
-    mail.close()
+    notification_email('script crashed')
     logger.info('CRASHED')
