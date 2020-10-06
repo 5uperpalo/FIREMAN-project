@@ -14,6 +14,20 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.setLevel(logging.INFO)
 
+src_email = XXX
+src_email_pass = YYY
+dst_email = ZZZ
+
+def notification_email(content_str):
+    mail = smtplib.SMTP('smtp.gmail.com',587)
+    content = 'Subject: %s\n\n%s' % ('script', content_str)
+    mail.ehlo()
+    mail.starttls()
+    mail.login(src_email, src_email_pass)
+    mail.sendmail(src_email, dst_email, content) 
+    mail.close()
+    logger.info(content_str)
+    
 dataset = pd.read_csv('tep_extended_dataset_simrun1.csv',index_col=False)
 dataset_X = dataset.drop(columns='faultNumber').values
 dataset_Y = dataset['faultNumber'].values
@@ -35,11 +49,5 @@ logger.info('RF 10CV f1 score mean with 95% confidence interval : ')
 for mean, std, params in zip(means, stds, RF_clf_gs.cv_results_['params']):
     logger.info("%0.3f (+/-%0.03f) for %r" % (mean, std * 2, params))
     
-content = 'Subject: %s\n\n%s' % ('script', 'RF script finished')
-mail = smtplib.SMTP('smtp.gmail.com',587)
-mail.ehlo()
-mail.starttls()
-mail.login('notifyme421@gmail.com','sfm1NIUDgv4YtaXV44rk')
-mail.sendmail('notifyme421@gmail.com','palusko@gmail.com',content) 
-mail.close()
+notification_email('RF script finished')
 logger.info('FINISHED')
