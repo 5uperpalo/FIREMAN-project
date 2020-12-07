@@ -1,4 +1,4 @@
-
-moa-release-2019.05.0/*
-papers/*
+#datasets/*
+#other/*
+#lut_sharepoint/*
 .ipynb_checkpoints/*
