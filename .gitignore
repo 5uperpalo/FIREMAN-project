@@ -1,4 +1,6 @@
-#datasets/*
-#other/*
-#lut_sharepoint/*
+\#datasets/*
+\#other/*
+\#lut_sharepoint/*
 .ipynb_checkpoints/*
+GAIN-Pytorch/*
+gans/*
