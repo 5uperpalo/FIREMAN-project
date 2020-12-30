@@ -9,7 +9,6 @@ Artificial dataset used for development:
 Scripts and notebooks:
 * [Extended TEP](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_extended_tep.ipynb) - transformation of Extended TEP dataset in .rdata format to csv
 * [Preprocessing](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_dataset_preprocessing_general_approach.ipynb) - general approach to preprocessing of the dataset with exploratory data science(feature values/distributions/correlations/etc.)
-* [GAIN imputation](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_gain.ipynb) - data imputation using GAN network - specifically GAIN
 * [Classification](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_classification.ipynb) - basic application and result analysis of [scikit-learn](https://scikit-learn.org/stable/) classifiers
 * [Clustering](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_density-based_analysis.ipynb) - unsupervised density-based clustering analysis of the dataset using DBSCAN and OPTICS
 * [Stream-based ML - MOA](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_moa_analysis.ipynb) - stream-based machine learning using [MOA](https://moa.cms.waikato.ac.nz/)
@@ -21,4 +20,3 @@ Scripts and notebooks:
 Additional materials:
 * [CSC/](https://github.com/5uperpalo/FIREMAN-project/tree/master/CSC) - scripts usable in [CSC](https://research.csc.fi/)
 * [workshop_05132020/](https://github.com/5uperpalo/FIREMAN-project/tree/master/workshop_05132020) - materials and presentations related to Fireman ML workshop organized in May 2020
-* [GAIN/](https://github.com/5uperpalo/FIREMAN-project/tree/master/GAIN) - adjusted GAIN from [Codebase for "Generative Adversarial Imputation Networks (GAIN)"](https://github.com/jsyoon0823/GAIN)
