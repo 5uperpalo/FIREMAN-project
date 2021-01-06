@@ -2,6 +2,7 @@
 \#other/*
 \#lut_sharepoint/*
 .ipynb_checkpoints/*
+.pylintrc
 GAIN-Pytorch/*
 gans/*
 results/*
