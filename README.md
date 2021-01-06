@@ -13,10 +13,10 @@ Artificial dataset used for development:
 * [TEP explanation](https://medium.com/@mrunal68/tennessee-eastman-process-simulation-data-for-anomaly-detection-evaluation-d719dc133a7f)
 * [Extended TEP dataset](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/6C3JR1)
 * [Broken rotor dataset](https://ieee-dataport.org/open-access/experimental-database-detecting-and-diagnosing-rotor-broken-bar-three-phase-induction) - unfortunatelly this dataset is not usable for the purpose of FIREMAN-project
- * [related analysis](https://github.com/5uperpalo/FIREMAN-project/tree/master/broken_rotor.ipynb)
+  * [related analysis](https://github.com/5uperpalo/FIREMAN-project/tree/master/broken_rotor.ipynb)
 
 Repositories:
-* [Data imputation](https://github.com/5uperpalo/FIREMAN-project_imputation) - data imputation script, notebooks and utilities
+* [Data imputation](https://github.com/5uperpalo/FIREMAN-project_imputation) - data imputation scripts, notebooks and utilities
 
 Scripts and notebooks:
 * [Extended TEP](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_extended_tep.ipynb) - transformation of Extended TEP dataset in .rdata format to csv
@@ -27,6 +27,7 @@ Scripts and notebooks:
 * [Stream-based ML - scikit-multiflow](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_streamML_and_concept_drift_detection.ipynb) - stream-bades machine learning and concept drift detection using [scikit-multiflow](https://scikit-multiflow.github.io/), project closely related to [MOA](https://moa.cms.waikato.ac.nz/)
 * [Pipeline](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_pipeline.ipynb) - machine learning pipeline template
 * [PCA](https://github.com/5uperpalo/FIREMAN-project/tree/master/PCAcode_PekkaR.ipynb) - dataset analysis using PCA related to a collaborating student masters thesis
+  * [related analysis](https://github.com/5uperpalo/FIREMAN-project/tree/master/Tennessee_Variables_PekkaR.ipynb)
 * [Feature analysis](https://github.com/5uperpalo/FIREMAN-project/tree/master/Tennessee_Variables_PekkaR.ipynb) - dataset analysis related to a collaborating student masters thesis
 
 Additional materials:
