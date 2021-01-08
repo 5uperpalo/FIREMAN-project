@@ -2,13 +2,6 @@
 
 Machine learning scripts and notebooks related to [FIREMAN project](https://fireman-project.eu/).
 
-REPORTS:
-* [REPORT01](https://github.com/5uperpalo/FIREMAN-project/tree/master/reports/Current_SEAT_datasets-preliminary_analysis.ipynb) - SEAT dataset initial report
-
-SEAT datasets:
-* [spindle](https://lut.sharepoint.com/:f:/r/sites/o365fireman/Shared%20Documents/General/Use_Cases/Datasets/Spindle?csf=1&web=1&e=YxZPc4)
-* [paintshop](https://lut.sharepoint.com/:f:/r/sites/o365fireman/Shared%20Documents/General/Use_Cases/Datasets/Drive_chain?csf=1&web=1&e=2h35xn)
-
 Artificial dataset used for development:
 * [TEP explanation](https://medium.com/@mrunal68/tennessee-eastman-process-simulation-data-for-anomaly-detection-evaluation-d719dc133a7f)
 * [Extended TEP dataset](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/6C3JR1)

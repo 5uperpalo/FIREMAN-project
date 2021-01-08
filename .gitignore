@@ -1,8 +1,20 @@
+# datasets etc
 \#datasets/*
 \#other/*
 \#lut_sharepoint/*
-.ipynb_checkpoints/*
-.pylintrc
+reports/*
+results/*
 GAIN-Pytorch/*
 gans/*
-results/*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*~
+ipython/.ipynb_checkpoints
+.python-version
+.pylintrc
+
+# Distribution / packaging
+build/
+dist/
