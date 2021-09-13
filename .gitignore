@@ -1,5 +1,4 @@
 # datasets etc
-\#datasets/*
 \#other/*
 \#lut_sharepoint/*
 reports/*
@@ -7,6 +6,16 @@ results/*
 GAIN-Pytorch/*
 gans/*
 
+*.csv
+*.mat
+*.xlsx
+*.RData
+*.dat
+*.gz
+*.txt
+*.sql
+*.arff
+\#datasets/spindle/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
