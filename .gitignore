@@ -5,7 +5,12 @@ reports/*
 results/*
 GAIN-Pytorch/*
 gans/*
-
+*.key
+/.vscode
+/.ipynb_checkpoints
+/wandb
+*.pkl
+*.zip
 *.csv
 *.mat
 *.xlsx

@@ -1,0 +1,64 @@
+{"identifier": "", 
+"measurement_label": "label",
+"target": "fault", 
+"categorical": [],
+"datasets": {
+    "Damping-320":{
+        "drop": [[0,20000]],
+        "failure":[[61030]]}, 
+    "Damping-32000": {
+        "drop": [[0,20000]],
+        "failure":[[61030]]},
+    "Inertia-1.2": {
+        "drop": [[0,20000]],
+        "failure":[[60000]]},
+    "LL_Fault": {
+        "drop": [[0,20000]],
+        "failure":[[60335,63500]]},
+    "Single-Phase_Sensor_Fault": {
+        "drop": [[0,20000]],
+        "failure":[[]]},
+    "Three-Phase_Sensor_Fault":  {
+        "drop": [[0,20000]],
+        "failure":[[60038]]},
+    "Weak_Grid-4_5_mH": {
+        "drop": [[0,20000]],
+        "failure":[[60000]]},
+    "Weak_Grid-1_5_mH": {
+        "drop": [[0,20000]],
+        "failure":[[60000]]},
+    "Damping-3200": {
+        "drop": [[0,20000]],
+        "failure":[[60000]]},
+    "Inertia-0.2": {
+        "drop": [[0,20000]],
+        "failure":[[60000]]},
+    "Inertia-2": {
+        "drop": [[0,20000]],
+        "failure":[[60000]]},
+    "Single_Phase_Sag": {
+        "drop": [[0,20000]],
+        "failure":[[60000]]},
+    "Three_Phase_Grid_Fault": {
+        "drop": [[0,20000]],
+        "failure":[[60333,61667]]},
+    "Weak_Grid-7_5_mH": {
+        "drop": [[0,20000]],
+        "failure":[[60000]]}
+    },
+"feature_ids": {
+    "f_c": ["out1", 0], 
+    "P": ["out1", 1],
+    "m_d": ["out2", 0],
+    "m_q": ["out2", 1],
+    "theta": ["out2", 2],
+    "P_ref": ["in", 0],
+    "V_DC": ["in", 1],
+    "V_phaseA": ["in", 2],
+    "V_phaseB": ["in", 3],
+    "V_phaseC": ["in", 4],
+    "I_phaseA": ["in", 5],
+    "I_phaseB": ["in", 6],
+    "I_phaseC": ["in", 7]
+}
+}
