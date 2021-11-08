@@ -12,16 +12,18 @@ Repositories:
 * [Data imputation](https://github.com/5uperpalo/FIREMAN-project_imputation) - data imputation scripts, notebooks and utilities
 
 Scripts and notebooks:
-* [Extended TEP](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_extended_tep.ipynb) - transformation of Extended TEP dataset in .rdata format to csv
-* [Preprocessing](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_dataset_preprocessing_general_approach.ipynb) - general approach to preprocessing of the dataset with exploratory data science(feature values/distributions/correlations/etc.)
-* [Classification](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_classification.ipynb) - basic application and result analysis of [scikit-learn](https://scikit-learn.org/stable/) classifiers
-* [Clustering](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_density-based_analysis.ipynb) - unsupervised density-based clustering analysis of the dataset using DBSCAN and OPTICS
-* [Stream-based ML - MOA](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_moa_analysis.ipynb) - stream-based machine learning using [MOA](https://moa.cms.waikato.ac.nz/)
-* [Stream-based ML - scikit-multiflow](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_streamML_and_concept_drift_detection.ipynb) - stream-bades machine learning and concept drift detection using [scikit-multiflow](https://scikit-multiflow.github.io/), project closely related to [MOA](https://moa.cms.waikato.ac.nz/)
-* [Pipeline](https://github.com/5uperpalo/FIREMAN-project/tree/master/fireman_pipeline.ipynb) - machine learning pipeline template
-* [PCA](https://github.com/5uperpalo/FIREMAN-project/tree/master/PCAcode_PekkaR.ipynb) - dataset analysis using PCA related to a collaborating student masters thesis
-  * [related analysis](https://github.com/5uperpalo/FIREMAN-project/tree/master/Tennessee_Variables_PekkaR.ipynb)
-* [Feature analysis](https://github.com/5uperpalo/FIREMAN-project/tree/master/Tennessee_Variables_PekkaR.ipynb) - dataset analysis related to a collaborating student masters thesis
+* [00 Preprocessing](https://github.com/5uperpalo/FIREMAN-project/tree/master/00_dataset_preprocessing_general_approach.ipynb) - general approach to preprocessing of the dataset with exploratory data science(feature values/distributions/correlations/etc.)
+* [01 Classification](https://github.com/5uperpalo/FIREMAN-project/tree/master/01_classification.ipynb) - basic application and result analysis of [scikit-learn](https://scikit-learn.org/stable/) classifiers
+* [02 Extended TEP](https://github.com/5uperpalo/FIREMAN-project/tree/master/02_extended_tep.ipynb) - transformation of Extended TEP dataset in .rdata format to csv
+* [03 Clustering](https://github.com/5uperpalo/FIREMAN-project/tree/master/03_density-based_analysis.ipynb) - unsupervised density-based clustering analysis of the dataset using DBSCAN and OPTICS
+* [04 Stream-based ML - MOA](https://github.com/5uperpalo/FIREMAN-project/tree/master/04_moa_analysis.ipynb) - stream-based machine learning using [MOA](https://moa.cms.waikato.ac.nz/)
+* [05 Pipeline](https://github.com/5uperpalo/FIREMAN-project/tree/master/05_pipeline.ipynb) - machine learning pipeline template
+* [06 Stream-based ML - scikit-multiflow](https://github.com/5uperpalo/FIREMAN-project/tree/master/06_streamML_and_concept_drift_detection.ipynb) - stream-bades machine learning and concept drift detection using [scikit-multiflow](https://scikit-multiflow.github.io/), project closely related to [MOA](https://moa.cms.waikato.ac.nz/)
+* [07 PCA](https://github.com/5uperpalo/FIREMAN-project/tree/master/07_PekkaR.ipynb) - dataset analysis using PCA related to a collaborating student masters thesis
+  * [08 related analysis](https://github.com/5uperpalo/FIREMAN-project/tree/master/08_Tennessee_Variables_PekkaR.ipynb) - dataset analysis related to a collaborating student masters thesis
+* [09 PowerConverter dataset](https://github.com/5uperpalo/FIREMAN-project/tree/master/09_PowerConverter_dataset_preprocessing.ipynb) - Power Converter dataset preprocessing
+* [10 PowerConverter dataset classification using DL](https://github.com/5uperpalo/FIREMAN-project/tree/master/10_DL_w_RayTune.ipynb) - Power Converter dataset preprocessing
+* [11 PowerConverter dataset classification using LightGBM](https://github.com/5uperpalo/FIREMAN-project/tree/master/11_LightGBM_w_RayTune.ipynb) - Power Converter dataset preprocessing
 
 Additional materials:
 * [CSC/](https://github.com/5uperpalo/FIREMAN-project/tree/master/CSC) - scripts usable in [CSC](https://research.csc.fi/)
