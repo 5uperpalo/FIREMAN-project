@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import multiprocessing
 import dill
+import torch
 
 from . import common
 from torch.optim import SGD, lr_scheduler
@@ -22,12 +23,13 @@ from torchmetrics import Accuracy as Accuracy_torchmetrics
 from torchmetrics import Precision as Precision_torchmetrics
 from torchmetrics import Recall as Recall_torchmetrics
 
-# use_gpu = True
-# use_cuda = use_gpu and torch.cuda.is_available()
-# device = torch.device("cuda" if use_cuda else "cpu")
+use_gpu = True
+use_cuda = use_gpu and torch.cuda.is_available()
+device = torch.device("cuda" if use_cuda else "cpu")
+print(f"Device: {device}")
 
-# torch.set_num_threads(multiprocessing.cpu_count())
-# torch.set_num_interop_threads(multiprocessing.cpu_count())
+torch.set_num_threads(multiprocessing.cpu_count())
+torch.set_num_interop_threads(multiprocessing.cpu_count())
 
 class dl_design:
     """Object used to define different DL network designs"""
@@ -228,10 +230,14 @@ def dl_train(X_train, X_val, wide_preprocessor, tab_preprocessor, task, verbose)
 
     n_classes = np.unique(X_train["target"]).size
 
-    accuracy = Accuracy_torchmetrics(average=None, num_classes=n_classes)
-    precision = Precision_torchmetrics(average="micro", num_classes=n_classes)
-    f1 = F1_torchmetrics(average=None, num_classes=n_classes)
-    recall = Recall_torchmetrics(average=None, num_classes=n_classes)
+    accuracy = Accuracy_torchmetrics(average=None, num_classes=2)
+    accuracy = accuracy.to(device)
+    precision = Precision_torchmetrics(average='micro', num_classes=2)
+    precision = precision.to(device)
+    f1 = F1_torchmetrics(average=None, num_classes=2)
+    f1 = f1.to(device)
+    recall = Recall_torchmetrics(average=None, num_classes=2)
+    recall = recall.to(device)
     metrics = [accuracy, precision, f1, recall]
 
     input_layer = len(tab_preprocessor.continuous_cols)
@@ -305,8 +311,8 @@ def dl_train(X_train, X_val, wide_preprocessor, tab_preprocessor, task, verbose)
         deep_opt = SGD(model.deeptabular.parameters(), lr=0.1)
         deep_sch = lr_scheduler.StepLR(deep_opt, step_size=5)
 
-        early_stopping = EarlyStopping()
-        model_checkpoint = ModelCheckpoint(save_best_only=True, verbose=int(verbose))
+        # early_stopping = EarlyStopping()
+        # model_checkpoint = ModelCheckpoint("#datasets/Colab_PowerConverter/checkpoint", save_best_only=True, verbose=int(verbose))
 
         if task == "binary":
             objective = "binary_focal_loss"
@@ -316,7 +322,7 @@ def dl_train(X_train, X_val, wide_preprocessor, tab_preprocessor, task, verbose)
         trainer = Trainer(
             model,
             objective=objective,
-            callbacks=[early_stopping, model_checkpoint],
+            # callbacks=[early_stopping, model_checkpoint],
             lr_schedulers={"deeptabular": deep_sch},
             initializers={"deeptabular": XavierNormal},
             optimizers={"deeptabular": deep_opt},
