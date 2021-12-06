@@ -28,7 +28,7 @@ class OutlierModel:
         if time_series is None:
             time_series = np.zeros(self.m * 4)
         self.time_series = time_series
-        self.stream = stumpy.stumpi(self.time_series, m, egress=egress, normalize=False)
+        self.stream = stumpy.stumpi(self.time_series, m, egress=egress)
         self.lastMaxIndex = -1
         self.anomalies = []
         self.std_dev = std_dev
@@ -83,29 +83,22 @@ class OutlierModel:
 
         self.comparisson.append(metric['signal'])
 
-        # metric =(mean_mp + (std_dev_mp * self.std_dev))
-        # self.stdFilter.append(metric)
-
         if metric['signal'] == 1:
-            # if max_mp > metric:
             anomaly = True
             # if self.lastMaxIndex >= 0:
             #     if self.lastMaxIndex != max_index:
             #         anomaly = True
             # else:
             #     anomaly = True
-        if anomaly and self.filter(index, max_mp):
+        if anomaly and not self.is_warming_up() and not self.recent_fault(index):
             true_anomaly = True
             self.anomalies.append(index)
             logger.warning(f" Anomaly at Global index: {index}")
         # self.lastMaxIndex = max_index
         return true_anomaly
 
-    def filter(self, index, max_mp):
-        return (not self.is_warming_up()) and (not self.recent_fault(index)) and max_mp > 1
-
     def is_warming_up(self):
         return self.count <= self.m
 
     def recent_fault(self, index):
-        return index < (self.anomalies[-1] + 10000) if self.anomalies else False # TODO: parmeterize window size
+        return index < (self.anomalies[-1] + self.m) if self.anomalies else False

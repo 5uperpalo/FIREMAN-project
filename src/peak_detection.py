@@ -1,5 +1,9 @@
 import numpy as np
 
+# https://stackoverflow.com/questions/22583391/peak-signal-detection-in-realtime-timeseries-data/56451135#56451135
+# https://stackoverflow.com/questions/22583391/peak-signal-detection-in-realtime-timeseries-data?page=1&tab=votes#tab-top
+
+
 class real_time_peak_detection():
     def __init__(self, array, lag, threshold, influence):
         self.y = list(array)
@@ -13,13 +17,14 @@ class real_time_peak_detection():
         self.stdFilter = [0] * len(self.y)
         self.avgFilter[self.lag - 1] = np.mean(self.y[0:self.lag]).tolist()
         self.stdFilter[self.lag - 1] = np.std(self.y[0:self.lag]).tolist()
+        self.nullResponse = {"signal": 0, "avgFilter": 0, "stdFilter": 0}
 
     def thresholding_algo(self, new_value):
         self.y.append(new_value)
         i = len(self.y) - 1
         self.length = len(self.y)
         if i < self.lag:
-            return 0
+            return self.nullResponse
         elif i == self.lag:
             self.signals = [0] * len(self.y)
             self.filteredY = np.array(self.y).tolist()
@@ -27,7 +32,7 @@ class real_time_peak_detection():
             self.stdFilter = [0] * len(self.y)
             self.avgFilter[self.lag] = np.mean(self.y[0:self.lag]).tolist()
             self.stdFilter[self.lag] = np.std(self.y[0:self.lag]).tolist()
-            return 0
+            return self.nullResponse
 
         self.signals += [0]
         self.filteredY += [0]
@@ -49,4 +54,4 @@ class real_time_peak_detection():
             self.avgFilter[i] = np.mean(self.filteredY[(i - self.lag):i])
             self.stdFilter[i] = np.std(self.filteredY[(i - self.lag):i])
 
-        return self.signals[i]
+        return {"signal": self.signals[i], "avgFilter": abs(self.avgFilter[i]), "stdFilter":self.stdFilter[i] * self.threshold}
