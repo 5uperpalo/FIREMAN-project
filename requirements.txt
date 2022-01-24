@@ -10,7 +10,7 @@ imbalanced-learn==0.8.1
 lime==0.2.0.1
 shap==0.39.0
 eli5==0.11.0
-pytorch-widedeep==1.0.10
+pytorch-widedeep==1.0.13
 jupyter==1.0.0
 river==0.8.0
 arff==0.9
@@ -25,4 +25,4 @@ tsod
 banpei
 scikit-learn~=1.0.1
 torchmetrics~=0.6.0
-luminaire~=0.3.0
+
