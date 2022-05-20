@@ -1,0 +1,134 @@
+site_name: FIREMAN
+repo_name: 'FIREMAN'
+repo_url: 'https://github.com/5uperpalo/FIREMAN-project'
+copyright: 'Pavol Mulinka'
+docs_dir: sources
+site_url: ""
+
+# extra:
+#     social:
+#         - icon: fontawesome/brands/medium
+#           link: https://jrzaurin.medium.com/
+
+# Navigation
+# There is no 'nav' in this config because we use mkdocs-awesome-pages-plugin
+# The ordering of pages in the docs folder are now in a `.pages` file instead
+nav:
+    - Home: index.md
+    - Reports:
+        - Current_SEAT_datasets-preliminary_analysis: reports/Current_SEAT_datasets-preliminary_analysis.ipynb
+    - workshop_05132020:
+        - workshop: workshop_05132020/workshop.md
+        - workshop_batch: workshop_05132020/workshop_batch.ipynb
+        - workshop_stream: workshop_05132020/workshop_stream.ipynb
+    - CSC: CSC/csc.md
+    - Notebooks:
+        - 00_dataset_preprocessing_general_approach: notebooks/00_dataset_preprocessing_general_approach.ipynb
+        - 01_classification: notebooks/01_classification.ipynb
+        - 02_extended_tep: notebooks/02_extended_tep.ipynb
+        - 03_density-based_analysis: notebooks/03_density-based_analysis.ipynb
+        - 04_moa_analysis: notebooks/04_moa_analysis.ipynb
+        - 05_pipeline: notebooks/05_pipeline.ipynb
+        - 06_streamML_and_concept_drift_detection: notebooks/06_streamML_and_concept_drift_detection.ipynb
+        - 07_PCAcode_PekkaR: notebooks/07_PCAcode_PekkaR.ipynb
+        - 08_Tennessee_Variables_PekkaR: notebooks/08_Tennessee_Variables_PekkaR.ipynb
+        - 09_PowerConverter_dataset_preprocessing: notebooks/09_PowerConverter_dataset_preprocessing.ipynb
+        - 10_DL_w_RayTune: notebooks/10_DL_w_RayTune.ipynb
+        - 11_Comparissons: notebooks/11_Comparissons.ipynb
+        - 11_LightGBM_w_RayTune: notebooks/11_LightGBM_w_RayTune.ipynb
+        - 12_pipeline_update: notebooks/12_pipeline_update.ipynb
+    - src:
+        - utils: src/utils.md
+        - common: src/common.md
+        - pipeline: src/pipeline.md
+    - Contributing: contributing.md
+
+theme:
+    name: material
+    custom_dir: sources/overrides
+
+    features:
+        - navigation.tabs
+        - navigation.tabs.sticky
+        - navigation.indexes
+        - navigation.expand
+
+    palette:
+        # scheme: preference uses dark or light mode based on user (OS) preference
+        scheme: preference
+        primary: red
+        accent: deep orange
+    icon:
+        logo: fontawesome/solid/code
+    favicon: 'assets/images/favicon.ico'
+    language: 'en'
+
+
+use_directory_urls: false
+
+plugins:
+    - search
+    - autolinks
+    - git-authors:
+        show_contribution: True
+    - mkdocs-jupyter:
+        ignore_h1_titles: True
+        include_source: True
+    - mkdocstrings:
+        default_handler: python
+        handlers:
+            python:
+                setup_commands:
+                    - import sys
+                    - import os
+                    - sys.path.insert(0, "..")
+                rendering:
+                    show_root_heading: True
+                    show_object_full_path: False
+                    separate_signature: True
+                    merge_init_into_class: True
+                    heading_level: 2
+                    show_source: True
+                    show_category_heading: true
+                    docstring_section_style: table
+                selection:
+                    docstring_style: google
+                    filters:
+                       - "!^_"  # exclude all members starting with _
+## Custom theme additions
+extra_javascript:
+        - 'stylesheets/extra.js'
+extra_css:
+        - stylesheets/extra.css
+
+## Extensions
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.attr_list
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      baselevel: 1
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde

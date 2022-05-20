@@ -29,6 +29,7 @@ from torchmetrics import Recall as Recall_torchmetrics
 # torch.set_num_threads(multiprocessing.cpu_count())
 # torch.set_num_interop_threads(multiprocessing.cpu_count())
 
+
 class dl_design:
     """Object used to define different DL network designs"""
     def __init__(
@@ -335,13 +336,13 @@ def dl_train(X_train, X_val, wide_preprocessor, tab_preprocessor, task, verbose)
 
 def dl_predict(data, wide_preprocessor, tab_preprocessor, model):
     """Procedure to predict values from pandas using provided dl model
-    
+
     Args:
         data (pandas): pandas dataframe containing data to predict
         wide_preprocessor (obj): DL model preprocessor for categorical columns
         tab_preprocessor (obj): DL model preprocessor for continuous columns
         model (obj): DL model
-    
+
     Returns:
        predicted (list): predicted values 
     """
@@ -355,7 +356,7 @@ def dl_predict(data, wide_preprocessor, tab_preprocessor, model):
 
 def evaluate(actual, predicted):
     """Procedure to print classification report
-    
+
     Args:
        actual (list): actual values
        predicted (list): predicted values
@@ -428,7 +429,6 @@ def train(
                            cat_cols,
                            cont_cols,
                            target)
-
 
     trainer = dl_train(X_train,
                        X_val,

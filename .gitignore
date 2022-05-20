@@ -20,6 +20,7 @@ gans/*
 *.txt
 *.sql
 *.arff
+/docs/site/*
 \#datasets/spindle/
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -3,48 +3,18 @@
 "target": "fault", 
 "categorical": [],
 "datasets": {
-    "Damping-320":{
-        "drop": [[0,20000]],
-        "failure":[[61030]]}, 
-    "Damping-32000": {
-        "drop": [[0,20000]],
-        "failure":[[61030]]},
-    "Inertia-1.2": {
-        "drop": [[0,20000]],
-        "failure":[[60000]]},
     "LL_Fault": {
         "drop": [[0,20000]],
         "failure":[[60335,63500]]},
-    "Single-Phase_Sensor_Fault": {
-        "drop": [[0,20000]],
-        "failure":[[]]},
     "Three-Phase_Sensor_Fault":  {
-        "drop": [[0,20000]],
-        "failure":[[60038]]},
-    "Weak_Grid-4_5_mH": {
-        "drop": [[0,20000]],
-        "failure":[[60000]]},
-    "Weak_Grid-1_5_mH": {
-        "drop": [[0,20000]],
-        "failure":[[60000]]},
-    "Damping-3200": {
-        "drop": [[0,20000]],
-        "failure":[[60000]]},
-    "Inertia-0.2": {
-        "drop": [[0,20000]],
-        "failure":[[60000]]},
-    "Inertia-2": {
-        "drop": [[0,20000]],
-        "failure":[[60000]]},
+         "drop": [[0,20000]],
+         "failure":[[60038]]},
     "Single_Phase_Sag": {
         "drop": [[0,20000]],
         "failure":[[60000]]},
     "Three_Phase_Grid_Fault": {
         "drop": [[0,20000]],
-        "failure":[[60333,61667]]},
-    "Weak_Grid-7_5_mH": {
-        "drop": [[0,20000]],
-        "failure":[[60000]]}
+        "failure":[[60333,61667]]}
     },
 "feature_ids": {
     "f_c": ["out1", 0], 
