@@ -1,4 +1,5 @@
 # datasets etc
+\#datasets/*
 \#other/*
 \#lut_sharepoint/*
 reports/*
@@ -17,7 +18,6 @@ gans/*
 *.RData
 *.dat
 *.gz
-*.txt
 *.sql
 *.arff
 /docs/site/*
