@@ -2,7 +2,7 @@ site_name: FIREMAN
 repo_name: 'FIREMAN'
 repo_url: 'https://github.com/5uperpalo/FIREMAN-project'
 copyright: 'Pavol Mulinka'
-docs_dir: sources
+docs_dir: docs/sources
 site_url: ""
 
 # extra:
@@ -45,7 +45,7 @@ nav:
 
 theme:
     name: material
-    custom_dir: sources/overrides
+    custom_dir: docs/sources/overrides
 
     features:
         - navigation.tabs
@@ -75,13 +75,15 @@ plugins:
         ignore_h1_titles: True
         include_source: True
     - mkdocstrings:
+        watch:
+            - src
         default_handler: python
         handlers:
             python:
-                setup_commands:
-                    - import sys
-                    - import os
-                    - sys.path.insert(0, "..")
+                # setup_commands:
+                #     - import sys
+                #     - import os
+                #     - sys.path.insert(0, "..")
                 rendering:
                     show_root_heading: True
                     show_object_full_path: False

@@ -2,6 +2,8 @@
 
 Machine learning scripts and notebooks related to [FIREMAN project](https://fireman-project.eu/).
 
+Documentation: https://fireman-project.readthedocs.io
+
 Artificial dataset used for development:
 * [TEP explanation](https://medium.com/@mrunal68/tennessee-eastman-process-simulation-data-for-anomaly-detection-evaluation-d719dc133a7f)
 * [Extended TEP dataset](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/6C3JR1)
