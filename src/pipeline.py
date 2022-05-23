@@ -17,7 +17,7 @@ from pytorch_widedeep.models import Wide, TabMlp, WideDeep
 from pytorch_widedeep.initializers import XavierNormal
 from pytorch_widedeep.callbacks import EarlyStopping, ModelCheckpoint
 
-from torchmetrics import F1 as F1_torchmetrics
+from torchmetrics import F1Score as F1_torchmetrics
 from torchmetrics import Accuracy as Accuracy_torchmetrics
 from torchmetrics import Precision as Precision_torchmetrics
 from torchmetrics import Recall as Recall_torchmetrics

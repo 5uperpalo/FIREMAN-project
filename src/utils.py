@@ -25,7 +25,7 @@ from sklearn.metrics import (
 from torchmetrics import (
     Accuracy,
     Precision,
-    F1,
+    F1Score,
     Recall,
 )
 
