@@ -1,4 +1,4 @@
-# <img src="https://github.com/5uperpalo/FIREMAN-project/blob/master/docs/sources/images/logo-fireman.png" height="64" />FIREMAN-project main repository
+# <img src="https://github.com/5uperpalo/FIREMAN-project/blob/master/docs/sources/assets/images/logo-fireman.png" height="64" />FIREMAN-project main repository
 
 Machine learning scripts and notebooks related to [FIREMAN project](https://fireman-project.eu/).
 

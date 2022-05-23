@@ -1,4 +1,4 @@
-# <img src="./images/logo-fireman.png" style="height:64px;" />FIREMAN-project main repository
+# <img src="./assets/images/logo-fireman.png" style="height:64px;" />FIREMAN-project main repository
 
 Machine learning scripts and notebooks related to [FIREMAN project](https://fireman-project.eu/).
 

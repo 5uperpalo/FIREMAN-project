@@ -2,13 +2,8 @@ site_name: FIREMAN
 repo_name: 'FIREMAN'
 repo_url: 'https://github.com/5uperpalo/FIREMAN-project'
 copyright: 'Pavol Mulinka'
-docs_dir: docs/sources
+docs_dir: sources
 site_url: ""
-
-# extra:
-#     social:
-#         - icon: fontawesome/brands/medium
-#           link: https://jrzaurin.medium.com/
 
 # Navigation
 # There is no 'nav' in this config because we use mkdocs-awesome-pages-plugin
@@ -45,7 +40,7 @@ nav:
 
 theme:
     name: material
-    custom_dir: docs/sources/overrides
+    custom_dir: sources/overrides
 
     features:
         - navigation.tabs
@@ -58,8 +53,7 @@ theme:
         scheme: preference
         primary: red
         accent: deep orange
-    icon:
-        logo: fontawesome/solid/code
+    logo: 'assets/images/logo-fireman.png'
     favicon: 'assets/images/favicon.ico'
     language: 'en'
 
@@ -82,8 +76,7 @@ plugins:
             python:
                 setup_commands:
                     - import sys
-                    - import os
-                    - sys.path.insert(0, "src")
+                    - sys.path.insert(0, "..")
                 rendering:
                     show_root_heading: True
                     show_object_full_path: False
