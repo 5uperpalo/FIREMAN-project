@@ -5,13 +5,16 @@ Machine learning scripts and notebooks related to [FIREMAN project](https://fire
 Documentation: https://fireman-project.readthedocs.io
 
 Artificial dataset used for development:
+
 * [TEP explanation](https://medium.com/@mrunal68/tennessee-eastman-process-simulation-data-for-anomaly-detection-evaluation-d719dc133a7f)
 * [Extended TEP dataset](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/6C3JR1)
 
 Repositories:
+
 * [Data imputation](https://github.com/5uperpalo/FIREMAN-project_imputation) - data imputation scripts, notebooks and utilities
 
 Scripts and notebooks:
+
 * [00 Preprocessing](https://github.com/5uperpalo/FIREMAN-project/tree/master/notebooks/00_dataset_preprocessing_general_approach.ipynb) - general approach to preprocessing of the dataset with exploratory data science(feature values/distributions/correlations/etc.)
 * [01 Classification](https://github.com/5uperpalo/FIREMAN-project/tree/master/notebooks/01_classification.ipynb) - basic application and result analysis of [scikit-learn](https://scikit-learn.org/stable/) classifiers
 * [02 Extended TEP](https://github.com/5uperpalo/FIREMAN-project/tree/master/notebooks/02_extended_tep.ipynb) - transformation of Extended TEP dataset in .rdata format to csv
@@ -26,5 +29,6 @@ Scripts and notebooks:
 * [11 PowerConverter dataset classification using LightGBM](https://github.com/5uperpalo/FIREMAN-project/tree/master/notebooks/11_LightGBM_w_RayTune.ipynb) - Power Converter dataset preprocessing
 
 Additional materials:
+
 * [CSC/](https://github.com/5uperpalo/FIREMAN-project/tree/master/CSC) - scripts usable in [CSC](https://research.csc.fi/)
 * [workshop_05132020/](https://github.com/5uperpalo/FIREMAN-project/tree/master/workshop_05132020) - materials and presentations related to Fireman ML workshop organized in May 2020
