@@ -1,0 +1,1 @@
+PROOT_NO_SECCOMP=1 $HOME/udocker/udocker run -v $(pwd):/srv merimkeras python stupid_imputation.py --data_name faulty_testing --data_path 0 --window 2

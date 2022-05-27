@@ -32,7 +32,12 @@ nav:
         - 11_Comparissons: notebooks/11_Comparissons.ipynb
         - 11_LightGBM_w_RayTune: notebooks/11_LightGBM_w_RayTune.ipynb
         - 12_pipeline_update: notebooks/12_pipeline_update.ipynb
-    - src:
+    - Deliverables: 
+        - deliverables/index.md
+        - D4 4 Software Executablefor Data Reduction:
+            - Autoencoder: deliverables/D4_4_Software_Executable_for_Data_Reduction/autoencoder/autoencoder.md
+            - GAIN: deliverables/D4_4_Software_Executable_for_Data_Reduction/gain/gain.md
+    - SRC:
         - utils: src/utils.md
         - common: src/common.md
         - pipeline: src/pipeline.md

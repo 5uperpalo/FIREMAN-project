@@ -1,26 +1,24 @@
-from copy import deepcopy
-import pandas as pd
-import numpy as np
 import multiprocessing
+from copy import deepcopy
+
 import dill
-
-from . import common
-from torch.optim import SGD, lr_scheduler
-
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
-
-from pytorch_widedeep.dataloaders import DataLoaderImbalanced, DataLoaderDefault
-from pytorch_widedeep.preprocessing import WidePreprocessor, TabPreprocessor
-from pytorch_widedeep.training import Trainer
-from pytorch_widedeep.models import Wide, TabMlp, WideDeep
-from pytorch_widedeep.initializers import XavierNormal
+import numpy as np
+import pandas as pd
 from pytorch_widedeep.callbacks import EarlyStopping, ModelCheckpoint
-
-from torchmetrics import F1Score as F1_torchmetrics
+from pytorch_widedeep.dataloaders import DataLoaderDefault, DataLoaderImbalanced
+from pytorch_widedeep.initializers import XavierNormal
+from pytorch_widedeep.models import TabMlp, Wide, WideDeep
+from pytorch_widedeep.preprocessing import TabPreprocessor, WidePreprocessor
+from pytorch_widedeep.training import Trainer
+from sklearn.metrics import classification_report
+from sklearn.model_selection import train_test_split
+from torch.optim import SGD, lr_scheduler
 from torchmetrics import Accuracy as Accuracy_torchmetrics
+from torchmetrics import F1Score as F1_torchmetrics
 from torchmetrics import Precision as Precision_torchmetrics
 from torchmetrics import Recall as Recall_torchmetrics
+
+from . import common
 
 # use_gpu = True
 # use_cuda = use_gpu and torch.cuda.is_available()
@@ -32,6 +30,7 @@ from torchmetrics import Recall as Recall_torchmetrics
 
 class dl_design:
     """Object used to define different DL network designs"""
+
     def __init__(
         self,
         input_layer: int,
@@ -49,36 +48,50 @@ class dl_design:
 
     def hidden_layers(self):
         if self.design == "funnel":
-            return np.linspace(self.input_layer * 2,
-                               self.output_layer,
-                               self.n_hidden_layers,
-                               endpoint=False, dtype=int).tolist()
+            return np.linspace(
+                self.input_layer * 2,
+                self.output_layer,
+                self.n_hidden_layers,
+                endpoint=False,
+                dtype=int,
+            ).tolist()
 
         if self.design == "pipe":
-            return [self.input_layer]*self.n_hidden_layers
+            return [self.input_layer] * self.n_hidden_layers
 
         if self.design == "anti_autoencoder":
-            anti_autoencoder = np.linspace(self.input_layer, self.input_layer*2, ceil(self.n_hidden_layers/2), dtype=int).tolist()
+            anti_autoencoder = np.linspace(
+                self.input_layer,
+                self.input_layer * 2,
+                ceil(self.n_hidden_layers / 2),
+                dtype=int,
+            ).tolist()
             anti_autoencoder.extend(anti_autoencoder[-2::-1])
             return anti_autoencoder
 
         if self.design == "trapezoid":
-            trapezoid = np.array([round(self.input_layer*1.25)]*self.n_hidden_layers)
+            trapezoid = np.array([round(self.input_layer * 1.25)] * self.n_hidden_layers)
             trapezoid[[0, -1]] = self.input_layer
             return trapezoid.tolist()
 
         if self.design == "anti_trapezoid":
-            anti_trapezoid = np.array([round(self.input_layer*0.75)]*self.n_hidden_layers)
+            anti_trapezoid = np.array([round(self.input_layer * 0.75)] * self.n_hidden_layers)
             anti_trapezoid[[0, -1]] = self.input_layer
             return anti_trapezoid.tolist()
 
         if self.design == "adj_funnel":
-            adj_funnel = np.linspace(self.input_layer*2, self.output_layer, self.n_hidden_layers, endpoint=False, dtype=int).tolist()
+            adj_funnel = np.linspace(
+                self.input_layer * 2,
+                self.output_layer,
+                self.n_hidden_layers,
+                endpoint=False,
+                dtype=int,
+            ).tolist()
             adj_funnel.insert(0, input_layer)
             return adj_funnel
 
         if self.design == "apollo":
-            return np.linspace(self.input_layer, self.input_layer*2, self.n_hidden_layers, dtype=int).tolist()
+            return np.linspace(self.input_layer, self.input_layer * 2, self.n_hidden_layers, dtype=int).tolist()
 
 
 def pipeline_data_train_prep(
@@ -121,13 +134,9 @@ def pipeline_data_train_prep(
             data.rename(columns={col: col.replace(".", "_")}, inplace=True)
 
     if verbose:
-        print(
-            "Size of dataset classes:\n{}".format(
-                data[target].value_counts()
-            )
-        )
+        print("Size of dataset classes:\n{}".format(data[target].value_counts()))
 
-    cont_cols = common.diff(data.drop(columns=[identifier,target]).columns.values, cat_cols)
+    cont_cols = common.diff(data.drop(columns=[identifier, target]).columns.values, cat_cols)
 
     data_train, data_valid = train_test_split(
         data,
@@ -147,15 +156,9 @@ def pipeline_data_train_prep(
     data_test.reset_index(inplace=True, drop=True)
 
     # data scale
-    data_train_scaled, Scaler = common.scale(
-        data_train, cat_cols + [target, identifier], scaler_sk=scaler_def
-    )
-    data_valid_scaled, Scaler = common.scale(
-        data_valid, cat_cols + [target, identifier], scaler_sk=Scaler
-    )
-    data_test_scaled, Scaler = common.scale(
-        data_test, cat_cols + [target, identifier], scaler_sk=Scaler
-    )
+    data_train_scaled, Scaler = common.scale(data_train, cat_cols + [target, identifier], scaler_sk=scaler_def)
+    data_valid_scaled, Scaler = common.scale(data_valid, cat_cols + [target, identifier], scaler_sk=Scaler)
+    data_test_scaled, Scaler = common.scale(data_test, cat_cols + [target, identifier], scaler_sk=Scaler)
 
     return data_train_scaled, data_valid_scaled, data_test_scaled, cont_cols, Scaler
 
@@ -170,7 +173,7 @@ def dl_model_data_prep(data_train, data_valid, cat_cols, cont_cols, target):
         cont_cols (list): list of continuous column names in the dataset
         target (string): column with labels
 
-    Returns:        
+    Returns:
         X_train (dict): training dataset
         X_val (dict): validation dataset
         wide_preprocessor (obj): DL model preprocessor for categorical columns
@@ -201,14 +204,14 @@ def dl_model_data_prep(data_train, data_valid, cat_cols, cont_cols, target):
 
     Y_train = data_train[target].values
     Y_valid = data_valid[target].values
-    
+
     if cat_cols:
         X_train = {"X_wide": X_wide_train, "X_tab": X_tab_train, "target": Y_train}
         X_val = {"X_wide": X_wide_valid, "X_tab": X_tab_valid, "target": Y_valid}
     else:
         X_train = {"X_tab": X_tab_train, "target": Y_train}
         X_val = {"X_tab": X_tab_valid, "target": Y_valid}
-    
+
     return X_train, X_val, wide_preprocessor, tab_preprocessor
 
 
@@ -344,7 +347,7 @@ def dl_predict(data, wide_preprocessor, tab_preprocessor, model):
         model (obj): DL model
 
     Returns:
-       predicted (list): predicted values 
+       predicted (list): predicted values
     """
     X_tab = tab_preprocessor.transform(data)
     if wide_preprocessor:
@@ -361,11 +364,7 @@ def evaluate(actual, predicted):
        actual (list): actual values
        predicted (list): predicted values
     """
-    print(
-        "Classification report:\n{}".format(
-            classification_report(actual, predicted)
-        )
-    )
+    print("Classification report:\n{}".format(classification_report(actual, predicted)))
 
 
 def train(
@@ -403,47 +402,37 @@ def train(
     scaler_def = parameters["scaler"]
     random_state = parameters["random_state"]
 
-    (
-        data_train_scaled,
-        data_valid_scaled,
-        data_test_scaled,
+    (data_train_scaled, data_valid_scaled, data_test_scaled, cont_cols, Scaler,) = pipeline_data_train_prep(
+        data,
+        test_size_train,
+        test_size_valid,
+        cat_cols,
+        scaler_def,
+        random_state,
+        identifier,
+        target,
+        verbose=verbose,
+    )
+
+    (X_train, X_val, wide_preprocessor, tab_preprocessor) = dl_model_data_prep(
+        data_train_scaled.drop(columns=[identifier]),
+        data_valid_scaled.drop(columns=[identifier]),
+        cat_cols,
         cont_cols,
-        Scaler,
-    ) = pipeline_data_train_prep(data,
-                                 test_size_train,
-                                 test_size_valid,
-                                 cat_cols,
-                                 scaler_def,
-                                 random_state,
-                                 identifier,
-                                 target,
-                                 verbose=verbose)
+        target,
+    )
 
-    (
-        X_train,
-        X_val,
+    trainer = dl_train(X_train, X_val, wide_preprocessor, tab_preprocessor, task, verbose)
+
+    predicted = dl_predict(
+        data_test_scaled.drop(columns=[identifier]),
         wide_preprocessor,
-        tab_preprocessor
-    ) = dl_model_data_prep(data_train_scaled.drop(columns=[identifier]),
-                           data_valid_scaled.drop(columns=[identifier]),
-                           cat_cols,
-                           cont_cols,
-                           target)
-
-    trainer = dl_train(X_train,
-                       X_val,
-                       wide_preprocessor,
-                       tab_preprocessor,
-                       task,
-                       verbose)
-
-    predicted = dl_predict(data_test_scaled.drop(columns=[identifier]),
-                           wide_preprocessor,
-                           tab_preprocessor,
-                           trainer)
+        tab_preprocessor,
+        trainer,
+    )
 
     evaluate(data_test_scaled[target].values, predicted)
-    
+
     models = {
         "cat_cols": cat_cols,
         "cont_cols": cont_cols,
@@ -489,12 +478,12 @@ def predict(data, column_types_loc, models_loc):
     tab_preprocessor = models["dl_tab_preprocessor"]
 
     data = data[cat_cols + cont_cols + [identifier]]
-    data_scaled, Scaler = common.scale(
-        data, cat_cols + [identifier], scaler_sk=Scaler
+    data_scaled, Scaler = common.scale(data, cat_cols + [identifier], scaler_sk=Scaler)
+    predicted = dl_predict(
+        data_scaled.drop(columns=[identifier]),
+        wide_preprocessor,
+        tab_preprocessor,
+        model,
     )
-    predicted = dl_predict(data_scaled.drop(columns=[identifier]),
-                           wide_preprocessor,
-                           tab_preprocessor,
-                           model)
 
     return predicted

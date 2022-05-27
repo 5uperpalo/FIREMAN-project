@@ -1,33 +1,17 @@
-from numpy import ndarray
-from pandas.core.frame import DataFrame
-from pytorch_widedeep.preprocessing import WidePreprocessor, TabPreprocessor
-from pytorch_widedeep.models import WideDeep
-from lightgbm import Dataset
-from typing import (
-    List,
-    Union,
-    Literal,
-)
+from math import ceil
+from typing import List, Literal, Union
 
 import numpy as np
+from lightgbm import Dataset
+from numpy import ndarray
+from pandas.core.frame import DataFrame
+from pytorch_widedeep.models import WideDeep
+from pytorch_widedeep.preprocessing import TabPreprocessor, WidePreprocessor
 from scipy.misc import derivative
-from math import ceil
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from sklearn.preprocessing import StandardScaler
-from sklearn_pandas import DataFrameMapper
-from sklearn_pandas import gen_features
-from pytorch_widedeep.preprocessing import WidePreprocessor, TabPreprocessor
-from sklearn.metrics import (
-    accuracy_score,
-    f1_score,
-    precision_score,
-    recall_score,
-)
-from torchmetrics import (
-    Accuracy,
-    Precision,
-    F1Score,
-    Recall,
-)
+from sklearn_pandas import DataFrameMapper, gen_features
+from torchmetrics import Accuracy, F1Score, Precision, Recall
 
 
 def scaler_mapper(
@@ -51,9 +35,7 @@ def scaler_mapper(
         scaler_mapper (DataFrameMapper): scaler object mapping sklearn scalers to columns in pandas dataframe
     """
     if scaler_mapper_def is None:
-        cont_cols_def = gen_features(
-            columns=list(map(lambda x: [x], cont_cols)), classes=[StandardScaler]
-        )
+        cont_cols_def = gen_features(columns=list(map(lambda x: [x], cont_cols)), classes=[StandardScaler])
 
         target_col_def = [([target_col], None, {})]
         identifier_def = [([identifier], None, {})]
@@ -67,15 +49,11 @@ def scaler_mapper(
         target_col_def = [([target_col], scaler_mapper_def["target_col"], {})]
         identifier_def = [([identifier], scaler_mapper_def["identifier_col"], {})]
 
-    scaler_mapper = DataFrameMapper(
-        cont_cols_def + target_col_def + identifier_def, df_out=True
-    )
+    scaler_mapper = DataFrameMapper(cont_cols_def + target_col_def + identifier_def, df_out=True)
     return scaler_mapper
 
 
-def optimize_df(
-    df: DataFrame, identifier: str, verbose: bool = True
-):
+def optimize_df(df: DataFrame, identifier: str, verbose: bool = True):
     """Simple function to assign approporiate columns data types in pandas DataFrame
 
     Args:
@@ -90,9 +68,7 @@ def optimize_df(
     data = df.convert_dtypes()
     data[identifier] = data[identifier].astype(str)
     if verbose:
-        reduction = (
-            1 - (data.memory_usage(deep=True).sum() / df.memory_usage(deep=True).sum())
-        ) * 100
+        reduction = (1 - (data.memory_usage(deep=True).sum() / df.memory_usage(deep=True).sum())) * 100
         print(f"Memory usage reduced by {reduction:0.2f}%")
     return data
 
@@ -135,7 +111,7 @@ class LGBM_custom_score:
             raise ValueError("n_classes must be int >=2!")
 
         return y_true, preds
-    
+
     def _focal_loss(self, y_pred, y_true, alpha, gamma):
         preds = self._sigmoid(y_pred)
         loss = (
@@ -145,9 +121,7 @@ class LGBM_custom_score:
         )
         return loss
 
-    def lgbm_focal_loss(
-        self, preds_raw: ndarray, lgbDataset: Dataset, alpha: float, gamma: float
-    ):
+    def lgbm_focal_loss(self, preds_raw: ndarray, lgbDataset: Dataset, alpha: float, gamma: float):
         """Adapation of the Focal Loss for lightgbm to be used as training loss.
         See original paper:
         * https://arxiv.org/pdf/1708.02002.pdf
@@ -168,23 +142,21 @@ class LGBM_custom_score:
         """
         y_true = lgbDataset.label
         # N observations x num_class arrays
-        if self.n_class>2:
-            y_true = np.eye(self.n_class)[y_true.astype('int')]
-            y_pred = preds_raw.reshape(-1,self.n_class, order='F')
+        if self.n_class > 2:
+            y_true = np.eye(self.n_class)[y_true.astype("int")]
+            y_pred = preds_raw.reshape(-1, self.n_class, order="F")
         else:
-            y_pred = preds_raw.astype('int')
+            y_pred = preds_raw.astype("int")
 
         partial_fl = lambda x: self._focal_loss(x, y_true, alpha, gamma)
         grad = derivative(partial_fl, y_pred, n=1, dx=1e-6)
         hess = derivative(partial_fl, y_pred, n=2, dx=1e-6)
-        if self.n_class>2:
-            return grad.flatten('F'), hess.flatten('F')
+        if self.n_class > 2:
+            return grad.flatten("F"), hess.flatten("F")
         else:
             return grad, hess
 
-    def lgbm_focal_loss_eval(
-        self, preds_raw: ndarray, lgbDataset: Dataset, alpha: float, gamma: float
-    ):
+    def lgbm_focal_loss_eval(self, preds_raw: ndarray, lgbDataset: Dataset, alpha: float, gamma: float):
         """Adapation of the Focal Loss for lightgbm to be used as evaluation loss.
         See original paper https://arxiv.org/pdf/1708.02002.pdf
 
@@ -198,9 +170,9 @@ class LGBM_custom_score:
         """
         y_true = lgbDataset.label
         # N observations x num_class arrays
-        if self.n_class>2:
-            y_true = np.eye(self.n_class)[y_true.astype('int')]
-            y_pred = preds_raw.reshape(-1,self.n_class, order='F')
+        if self.n_class > 2:
+            y_true = np.eye(self.n_class)[y_true.astype("int")]
+            y_pred = preds_raw.reshape(-1, self.n_class, order="F")
         else:
             y_pred = preds_raw
 
@@ -341,16 +313,12 @@ class dl_design:
             return anti_autoencoder
 
         if self.design == "trapezoid":
-            trapezoid = np.array(
-                [round(self.input_layer * 1.25)] * self.n_hidden_layers
-            )
+            trapezoid = np.array([round(self.input_layer * 1.25)] * self.n_hidden_layers)
             trapezoid[[0, -1]] = self.input_layer
             return trapezoid.tolist()
 
         if self.design == "anti_trapezoid":
-            anti_trapezoid = np.array(
-                [round(self.input_layer * 0.75)] * self.n_hidden_layers
-            )
+            anti_trapezoid = np.array([round(self.input_layer * 0.75)] * self.n_hidden_layers)
             anti_trapezoid[[0, -1]] = self.input_layer
             return anti_trapezoid.tolist()
 
@@ -366,9 +334,7 @@ class dl_design:
             return adj_funnel
 
         if self.design == "apollo":
-            return np.linspace(
-                self.input_layer, self.input_layer * 2, self.n_hidden_layers, dtype=int
-            ).tolist()
+            return np.linspace(self.input_layer, self.input_layer * 2, self.n_hidden_layers, dtype=int).tolist()
 
 
 def dl_train_prep(
@@ -427,7 +393,7 @@ def dl_metrics(
     """
     accuracy = Accuracy(average=None, num_classes=n_classes)
     precision = Precision(average="micro", num_classes=n_classes)
-    f1 = F1(average=None, num_classes=n_classes)
+    f1 = F1Score(average=None, num_classes=n_classes)
     recall = Recall(average=None, num_classes=n_classes)
 
     metrics_list = [accuracy, precision, f1, recall]
