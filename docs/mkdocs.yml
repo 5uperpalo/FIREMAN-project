@@ -1,9 +1,10 @@
 site_name: FIREMAN
-repo_name: 'FIREMAN'
-repo_url: 'https://github.com/5uperpalo/FIREMAN-project'
-copyright: 'Pavol Mulinka'
+repo_name: FIREMAN
+repo_url: https://github.com/5uperpalo/FIREMAN-project/
+copyright: Pavol Mulinka
 docs_dir: sources
-site_url: ""
+edit_uri: edit/master/docs/sources
+site_url: https://fireman-project.readthedocs.io/
 
 # Navigation
 # There is no 'nav' in this config because we use mkdocs-awesome-pages-plugin
