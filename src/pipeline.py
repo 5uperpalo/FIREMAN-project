@@ -87,7 +87,7 @@ class dl_design:
                 endpoint=False,
                 dtype=int,
             ).tolist()
-            adj_funnel.insert(0, input_layer)
+            adj_funnel.insert(0, self.input_layer)
             return adj_funnel
 
         if self.design == "apollo":

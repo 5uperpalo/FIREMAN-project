@@ -84,7 +84,8 @@ plugins:
                     - import sys
                     - sys.path.insert(0, "..")
                 rendering:
-                    show_root_heading: True
+                    # cant set this otherwise I receive an error
+                    # show_root_heading: True
                     show_object_full_path: False
                     separate_signature: True
                     merge_init_into_class: True
