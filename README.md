@@ -32,3 +32,4 @@ Additional materials:
 
 * [CSC/](https://github.com/5uperpalo/FIREMAN-project/tree/master/CSC) - scripts usable in [CSC](https://research.csc.fi/)
 * [workshop_05132020/](https://github.com/5uperpalo/FIREMAN-project/tree/master/workshop_05132020) - materials and presentations related to Fireman ML workshop organized in May 2020
+* [adjusted Anomaly-Transformer scripts](https://github.com/5uperpalo/Anomaly-Transformer_FIREMAN)

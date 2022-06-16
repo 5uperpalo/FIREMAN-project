@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: If you like or use this software, please cite it using these metadata.
+title: FIREMAN
+abstract: FIREMAN analysis scripts and documentation.
+authors:
+  - family-names: Mulinka
+    given-names: Pavol
+    orcid: "https://orcid.org/0000-0002-9394-8794"
+  - name: "FIREMAN"
+# version: 0.0.1
+# date-released: "2021-07-18"
+# identifiers:
+#   - description: This is the collection of archived snapshots of all versions of My Research Software
+#     type: doi
+#     value: "10.5281/zenodo.123456"
+#   - description: This is the archived snapshot of version 0.11.2 of My Research Software
+#     type: doi
+#     value: "10.5281/zenodo.123457"
+# license: Apache-2.0
+repository-code: "https://github.com/5uperpalo/FIREMAN-project"

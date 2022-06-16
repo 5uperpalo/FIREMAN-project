@@ -96,14 +96,15 @@ plugins:
                     # show_object_full_path: False
                     separate_signature: True
                     merge_init_into_class: True
-                    show_root_toc_entry: False
+                    #show_root_toc_entry: False
+                    show_submodules: True
                     # show_if_no_docstring: True
                     # #heading_level: 2
                     show_source: True
                     # show_category_heading: true
                     # docstring_section_style: list
                 selection:
-                    docstring_style: google
+                    #docstring_style: google
                     filters:
                        - "!^_"  # exclude all members starting with _
 ## Custom theme additions
@@ -122,6 +123,7 @@ markdown_extensions:
   - markdown.extensions.toc:
       baselevel: 1
       permalink: true
+      toc_depth: 2
   - pymdownx.arithmatex
   - pymdownx.betterem:
       smart_enable: all
