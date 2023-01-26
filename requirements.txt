@@ -8,3 +8,9 @@ numpy
 scipy
 lightgbm
 sklearn_pandas
+matplotlib
+h2o
+ray[tune]
+wandb
+shap
+numpy=1.24

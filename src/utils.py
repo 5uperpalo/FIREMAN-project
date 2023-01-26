@@ -1,5 +1,5 @@
 from math import ceil
-from typing import List, Literal, Union
+from typing import List, Literal, Union, Optional
 
 import numpy as np
 from lightgbm import Dataset
@@ -35,7 +35,9 @@ def scaler_mapper(
         scaler_mapper (DataFrameMapper): scaler object mapping sklearn scalers to columns in pandas dataframe
     """
     if scaler_mapper_def is None:
-        cont_cols_def = gen_features(columns=list(map(lambda x: [x], cont_cols)), classes=[StandardScaler])
+        cont_cols_def = gen_features(
+            columns=list(map(lambda x: [x], cont_cols)), classes=[StandardScaler]
+        )
 
         target_col_def = [([target_col], None, {})]
         identifier_def = [([identifier], None, {})]
@@ -49,7 +51,9 @@ def scaler_mapper(
         target_col_def = [([target_col], scaler_mapper_def["target_col"], {})]
         identifier_def = [([identifier], scaler_mapper_def["identifier_col"], {})]
 
-    scaler_mapper = DataFrameMapper(cont_cols_def + target_col_def + identifier_def, df_out=True)
+    scaler_mapper = DataFrameMapper(
+        cont_cols_def + target_col_def + identifier_def, df_out=True
+    )
     return scaler_mapper
 
 
@@ -68,7 +72,9 @@ def optimize_df(df: DataFrame, identifier: str, verbose: bool = True):
     data = df.convert_dtypes()
     data[identifier] = data[identifier].astype(str)
     if verbose:
-        reduction = (1 - (data.memory_usage(deep=True).sum() / df.memory_usage(deep=True).sum())) * 100
+        reduction = (
+            1 - (data.memory_usage(deep=True).sum() / df.memory_usage(deep=True).sum())
+        ) * 100
         print(f"Memory usage reduced by {reduction:0.2f}%")
     return data
 
@@ -121,7 +127,9 @@ class LGBM_custom_score:
         )
         return loss
 
-    def lgbm_focal_loss(self, preds_raw: ndarray, lgbDataset: Dataset, alpha: float, gamma: float):
+    def lgbm_focal_loss(
+        self, preds_raw: ndarray, lgbDataset: Dataset, alpha: float, gamma: float
+    ):
         """Adapation of the Focal Loss for lightgbm to be used as training loss.
         See original paper:
         * https://arxiv.org/pdf/1708.02002.pdf
@@ -156,7 +164,9 @@ class LGBM_custom_score:
         else:
             return grad, hess
 
-    def lgbm_focal_loss_eval(self, preds_raw: ndarray, lgbDataset: Dataset, alpha: float, gamma: float):
+    def lgbm_focal_loss_eval(
+        self, preds_raw: ndarray, lgbDataset: Dataset, alpha: float, gamma: float
+    ):
         """Adapation of the Focal Loss for lightgbm to be used as evaluation loss.
         See original paper https://arxiv.org/pdf/1708.02002.pdf
 
@@ -313,12 +323,16 @@ class dl_design:
             return anti_autoencoder
 
         if self.design == "trapezoid":
-            trapezoid = np.array([round(self.input_layer * 1.25)] * self.n_hidden_layers)
+            trapezoid = np.array(
+                [round(self.input_layer * 1.25)] * self.n_hidden_layers
+            )
             trapezoid[[0, -1]] = self.input_layer
             return trapezoid.tolist()
 
         if self.design == "anti_trapezoid":
-            anti_trapezoid = np.array([round(self.input_layer * 0.75)] * self.n_hidden_layers)
+            anti_trapezoid = np.array(
+                [round(self.input_layer * 0.75)] * self.n_hidden_layers
+            )
             anti_trapezoid[[0, -1]] = self.input_layer
             return anti_trapezoid.tolist()
 
@@ -334,15 +348,19 @@ class dl_design:
             return adj_funnel
 
         if self.design == "apollo":
-            return np.linspace(self.input_layer, self.input_layer * 2, self.n_hidden_layers, dtype=int).tolist()
+            return np.linspace(
+                self.input_layer, self.input_layer * 2, self.n_hidden_layers, dtype=int
+            ).tolist()
 
 
 def dl_train_prep(
     data_train: DataFrame,
     data_valid: DataFrame,
     identifier: str,
-    cont_cols: list,
     target_col: str,
+    cont_cols: Optional[list] = None,
+    cat_cols: Optional[list] = None,
+    embedding_rule: str = "fastai_old",
 ):
     """Aggregator method to prepare the data for deep models trained in pytorch-widedeep library.
     DISCLAIMER!!!
@@ -391,10 +409,14 @@ def dl_metrics(
     Returns:
         metrics_list (list): list of metrics tracked during training of deep learning model
     """
-    accuracy = Accuracy(average=None, num_classes=n_classes)
-    precision = Precision(average="micro", num_classes=n_classes)
-    f1 = F1Score(average=None, num_classes=n_classes)
-    recall = Recall(average=None, num_classes=n_classes)
+    if n_classes > 2:
+        task = "multiclass"
+    else:
+        task = "binary"
+    accuracy = Accuracy(average=None, task=task, num_classes=n_classes)
+    precision = Precision(average="micro", task=task, num_classes=n_classes)
+    f1 = F1Score(average=None, task=task, num_classes=n_classes)
+    recall = Recall(average=None, task=task, num_classes=n_classes)
 
     metrics_list = [accuracy, precision, f1, recall]
     return metrics_list
